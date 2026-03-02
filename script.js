@@ -91,12 +91,20 @@ const downloadConfig = {
   },
   sonus: {
     name: 'Sonus Wave',
-    file: 'Sonus_Wave_v1.5.6.apk',
+    file: 'Em breve na Play Store',
     size: 'NULL MB',
     link: '#',
     message: 'Download disponível em breve na Play Store',
     hasPreview: true,
     previewId: 'sonus-preview-section'
+  },
+  waveframe: {
+    name: 'Waveframe',
+    file: 'Em breve na Play Store',
+    size: 'NULL MB',
+    link: '#',
+    message: 'Download disponível em breve na Play Store',
+    hasPreview: false
   },
   wave: {
     name: 'Velonote',
