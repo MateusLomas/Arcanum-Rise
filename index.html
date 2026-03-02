@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arcanum Rise</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="background"></div>
+
+<nav class="desktop-menu">
+  <ul>
+    <li data-page="home" class="active">&#127968; Home</li>
+    <li data-page="downloads">&#11015;&#65039; Downloads</li>
+    <li data-page="contact">&#128233; Fale Conosco</li>
+    <li onclick="window.location.href='../PoliticadePrivacidade.html'">&#128274; Pol&#237;tica de Privacidade</li>
+  </ul>
+</nav>
+
+<div class="mobile-menu-toggle" id="mobileMenuToggle">&#9776;</div>
+<nav class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li data-page="home" class="active">&#127968; Home</li>
+    <li data-page="downloads">&#11015;&#65039; Downloads</li>
+    <li data-page="contact">&#128233; Fale Conosco</li>
+    <li onclick="window.location.href='../PoliticadePrivacidade.html'">&#128274; Pol&#237;tica de Privacidade</li>
+  </ul>
+</nav>
+
+<main class="pages-container">
+
+  <!-- ========== HOME ========== -->
+  <section id="home" class="page active">
+    <div class="container">
+      <h1 class="logo">Arcanum Rise</h1>
+      <p class="subtitle" id="typing"></p>
+      <p class="description">Criando jogos e aplica&#231;&#245;es inovadoras.<br>O futuro est&#225; em desenvolvimento.</p>
+      <div class="status">&#128640; Estamos trabalhando muito!</div>
+    </div>
+  </section>
+
+  <!-- ========== DOWNLOADS ========== -->
+  <section id="downloads" class="page">
+    <div id="irw-downloads">
+
+      <!-- Card principal -->
+      <div class="irw-card">
+        <header class="irw-card-head">
+          <h2>Arcanum Rise &#8212; Downloads Oficiais</h2>
+          <p>Escolha seu aplicativo e baixe o instalador oficial.</p>
+        </header>
+
+        <div class="irw-grid">
+
+          <!-- Botoes de Plataforma -->
+          <div class="irw-platforms" role="list">
+
+            <!-- Scrap Survivor Apocalypse -->
+            <button class="irw-platform" data-platform="scrap" aria-label="Scrap Survivor Apocalypse">
+              <span class="irw-icon">
+                <img src="images/IconsSite/icon-android.png" alt="Icone Game" width="40" height="40"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span style="display:none;font-size:32px;">&#127918;</span>
+              </span>
+              <span class="irw-label">Scrap Survivor Apocalypse</span>
+              <span class="irw-badge-unavailable">Indisponível</span>
+            </button>
+
+            <!-- Sonus Wave -->
+            <button class="irw-platform" data-platform="sonus" aria-label="Sonus Wave">
+              <span class="irw-icon">
+                <img src="images/IconsSite/icon-android.png" alt="Icone Android" width="40" height="40"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span style="display:none;font-size:32px;">&#127925;</span>
+              </span>
+              <span class="irw-label">Sonus Wave</span>
+              <span class="irw-badge-unavailable">Indisponível</span>
+            </button>
+
+            <!-- Velonote -->
+            <button class="irw-platform" data-platform="wave" aria-label="Velonote">
+              <span class="irw-icon">
+                <img src="images/IconsSite/icon-pc.png" alt="Icone PC" width="40" height="40"
+                  onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                <span style="display:none;font-size:32px;">&#128187;</span>
+              </span>
+              <span class="irw-label">Velonote</span>
+              <span class="irw-badge-available">Disponível</span>
+            </button>
+
+          </div>
+
+          <!-- Informacoes e Acao -->
+          <div class="irw-info">
+            <div class="irw-preview">
+              <div class="irw-hero">
+                <h3 class="irw-hero-title">Baixe o aplicativo oficial</h3>
+                <p class="irw-hero-desc">Instaladores testados. Escolha seu sistema "app" e clique em baixar.</p>
+              </div>
+              <div class="irw-actions">
+                <a id="irw-download-link" class="irw-download-btn" href="#" role="button" aria-live="polite">BAIXAR</a>
+                <div class="irw-suggest">Detectado Agora: <span style="color: rgb(55, 255, 0);" id="irw-detected">&#8212;</span></div>
+              </div>
+              <div class="irw-progress" aria-hidden="true">
+                <div class="irw-progress-bar" style="width:0%"></div>
+                <div class="irw-progress-text">Em desenvolvimento</div>
+              </div>
+            </div>
+            <ul class="irw-features">
+              <li>&#8226; Assinado digitalmente</li>
+              <li>&#8226; Seguro e confi&#225;vel</li>
+              <li>&#8226; Documenta&#231;&#227;o inclusa</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <footer class="irw-footer">
+          Arquivo: <strong id="irw-file">&#8212;</strong> &#8226; Tamanho: <strong id="irw-size">&#8212;</strong>
+        </footer>
+      </div>
+
+      <!-- ========== PREVIEW: SONUS WAVE ========== -->
+      <div id="sonus-preview-section" class="velonote-preview-section sonus-preview-section" style="display:none;">
+        <div class="vp-header">
+          <div class="vp-title-line">
+            <span class="vp-dot sonus-dot"></span>
+            <h3 class="vp-title">Preview do Sonus Wave</h3>
+            <span class="vp-dot sonus-dot"></span>
+          </div>
+          <p class="vp-subtitle">Reprodutor de m&#250;sica totalmente customiz&#225;vel &#8212; player, fundo, playlists e muito mais</p>
+        </div>
+
+        <div class="vp-carousel sonus-carousel">
+          <div class="vp-track" id="sonusTrack">
+
+            <div class="vp-slide" data-index="0">
+              <div class="vp-img-wrap">
+                <img src="images/Previews/SonusWave-Musics.jpeg" alt="Sonus Wave - Musicas" loading="lazy" />
+                <div class="vp-img-overlay">
+                  <span class="vp-img-label">&#127925; Suas M&#250;sicas</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="vp-slide" data-index="1">
+              <div class="vp-img-wrap">
+                <img src="images/Previews/SonusWave-Config.jpeg" alt="Sonus Wave - Configuracoes" loading="lazy" />
+                <div class="vp-img-overlay">
+                  <span class="vp-img-label">&#9881;&#65039; Configura&#231;&#245;es</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="vp-slide" data-index="2">
+              <div class="vp-img-wrap">
+                <img src="images/Previews/SonusWave-Playlists.jpeg" alt="Sonus Wave - Playlists" loading="lazy" />
+                <div class="vp-img-overlay">
+                  <span class="vp-img-label">&#128203; Playlists</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="vp-arrow vp-prev" id="sonusPrev" aria-label="Anterior">&#8249;</button>
+          <button class="vp-arrow vp-next" id="sonusNext" aria-label="Proximo">&#8250;</button>
+
+          <div class="vp-dots">
+            <span class="vp-dot-btn active" data-slide="0"></span>
+            <span class="vp-dot-btn" data-slide="1"></span>
+            <span class="vp-dot-btn" data-slide="2"></span>
+          </div>
+        </div>
+
+        <div class="vp-tags">
+          <span class="vp-tag sonus-tag">Android</span>
+          <span class="vp-tag sonus-tag">Player Customiz&#225;vel</span>
+          <span class="vp-tag sonus-tag">Temas &amp; Fundos</span>
+          <span class="vp-tag sonus-tag">Playlists</span>
+        </div>
+      </div>
+
+      <!-- ========== PREVIEW: VELONOTE ========== -->
+      <div id="velonote-preview-section" class="velonote-preview-section" style="display:none;">
+        <div class="vp-header">
+          <div class="vp-title-line">
+            <span class="vp-dot"></span>
+            <h3 class="vp-title">Preview do Velonote</h3>
+            <span class="vp-dot"></span>
+          </div>
+          <p class="vp-subtitle">Veja o app em a&#231;&#227;o antes de baixar</p>
+        </div>
+
+        <div class="vp-carousel">
+          <div class="vp-track" id="vpTrack">
+
+            <div class="vp-slide" data-index="0">
+              <div class="vp-img-wrap">
+                <img src="images/Previews/Velonote-ModoEditor.png" alt="Velonote - Modo Editor" loading="lazy" />
+                <div class="vp-img-overlay">
+                  <span class="vp-img-label">&#9999;&#65039; Modo Editor</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="vp-slide" data-index="1">
+              <div class="vp-img-wrap">
+                <img src="images/Previews/Velonote-ModoDev.png" alt="Velonote - Modo Dev" loading="lazy" />
+                <div class="vp-img-overlay">
+                  <span class="vp-img-label">&#9881;&#65039; Modo Dev</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="vp-arrow vp-prev" id="vpPrev" aria-label="Anterior">&#8249;</button>
+          <button class="vp-arrow vp-next" id="vpNext" aria-label="Proximo">&#8250;</button>
+
+          <div class="vp-dots">
+            <span class="vp-dot-btn active" data-slide="0"></span>
+            <span class="vp-dot-btn" data-slide="1"></span>
+          </div>
+        </div>
+
+        <div class="vp-tags">
+          <span class="vp-tag">Windows 10/11</span>
+          <span class="vp-tag">Editor de C&#243;digo</span>
+          <span class="vp-tag">Modo Dev</span>
+          <span class="vp-tag">Dark Theme</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== CONTATO ========== -->
+  <section id="contact" class="page">
+    <div class="contact-container">
+      <h2>Fale Conosco</h2>
+      <p>Email: arcanumlabs.studios@gmail.com</p>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
