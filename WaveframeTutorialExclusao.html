@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excluir Conta — Waveframe</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #06060e;
+    --surface: #0d0d1a;
+    --card:    #111122;
+    --border:  rgba(108,99,255,0.18);
+    --a1:      #6C63FF;
+    --a2:      #4FC3F7;
+    --a3:      #AB47BC;
+    --danger:  #FF4D6D;
+    --danger2: #FF8FA3;
+    --ok:      #43E97B;
+    --gold:    #FFD700;
+    --text:    #EEEEF5;
+    --muted:   #7070A0;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 0.55s ease;
+  }
+
+  .bg-layer {
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 65% 50% at 10% 10%, rgba(255,77,109,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 45% at 90% 85%, rgba(108,99,255,0.09) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 35% at 55% 45%, rgba(79,195,247,0.04) 0%, transparent 60%);
+  }
+
+  .grid {
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(108,99,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,77,109,0.025) 1px, transparent 1px);
+    background-size: 68px 68px;
+  }
+
+  .particles { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .p {
+    position:absolute; border-radius:50%;
+    animation: rise linear infinite; opacity:0;
+  }
+  @keyframes rise {
+    0%   { opacity:0;   transform:translateY(100vh) scale(0.3); }
+    12%  { opacity:0.5; }
+    88%  { opacity:0.12; }
+    100% { opacity:0;   transform:translateY(-8vh)  scale(1.1); }
+  }
+
+  .scroll-bar {
+    position:fixed; top:0; left:0; height:2px; z-index:999;
+    background: linear-gradient(90deg, var(--danger), var(--a1), var(--a2));
+    width:0%; transition:width 0.1s linear;
+  }
+
+  .top-btn {
+    position:fixed; bottom:28px; right:28px; z-index:99;
+    width:42px; height:42px; border-radius:13px; border:none;
+    background: linear-gradient(135deg, var(--a1), var(--a3));
+    color:white; font-size:17px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:translateY(20px);
+    transition: all 0.3s ease;
+  }
+  .top-btn.show { opacity:1; transform:translateY(0); }
+  .top-btn:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(108,99,255,0.4); }
+
+  .wrap {
+    position:relative; z-index:1;
+    max-width:700px; margin:0 auto;
+    padding: 0 24px 110px;
+  }
+
+  .back {
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:30px; padding: 8px 16px; border-radius:100px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    color:var(--muted); text-decoration:none;
+    font-size:13px; font-weight:500;
+    transition: all 0.2s ease;
+  }
+  .back::before { content:'←'; font-size:14px; }
+  .back:hover { color:var(--text); border-color:rgba(108,99,255,0.35); background:rgba(108,99,255,0.07); }
+
+  /* HERO */
+  .hero {
+    padding:58px 0 44px; text-align:center;
+    opacity:0; transform:translateY(28px);
+    animation: up 0.9s ease forwards 0.15s;
+  }
+  .hero-icon {
+    width:90px; height:90px; margin:0 auto 26px;
+    border-radius:28px;
+    background: linear-gradient(135deg, rgba(255,77,109,0.15), rgba(108,99,255,0.1));
+    border: 1px solid rgba(255,77,109,0.22);
+    display:flex; align-items:center; justify-content:center; font-size:40px;
+    animation: halo 3.5s ease-in-out infinite;
+  }
+  @keyframes halo {
+    0%,100% { box-shadow:0 0 0 0 rgba(255,77,109,0); }
+    50%      { box-shadow:0 0 0 16px rgba(255,77,109,0.06); }
+  }
+  .badge {
+    display:inline-flex; align-items:center; gap:7px;
+    background: rgba(255,77,109,0.09); border: 1px solid rgba(255,77,109,0.22);
+    border-radius:100px; padding:5px 14px;
+    font-size:11px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--danger2); margin-bottom:18px;
+  }
+  .badge::before {
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:var(--danger); animation: dot 2s ease infinite;
+  }
+  @keyframes dot {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.35; transform:scale(0.75); }
+  }
+  .hero h1 {
+    font-family:'Syne',sans-serif;
+    font-size:clamp(2rem,5.5vw,3.2rem); font-weight:800;
+    letter-spacing:-1px; line-height:1.1;
+    background: linear-gradient(135deg, var(--text) 0%, var(--danger2) 55%, var(--a1) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; margin-bottom:14px;
+  }
+  .hero-sub { font-size:15px; color:var(--muted); max-width:440px; margin:0 auto; }
+
+  /* ALERT */
+  .alert {
+    display:flex; gap:14px; align-items:flex-start;
+    background: rgba(255,77,109,0.06); border: 1px solid rgba(255,77,109,0.2);
+    border-radius:16px; padding:20px 22px; margin-bottom:30px;
+    opacity:0; animation: up 0.8s ease forwards 0.4s;
+  }
+  .alert-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
+  .alert-text { font-size:13.5px; color:#c08090; line-height:1.65; }
+  .alert-text strong { color:var(--danger2); }
+
+  /* STEPS */
+  .steps {
+    display:flex; flex-direction:column; gap:12px; margin-bottom:34px;
+    opacity:0; animation: up 0.8s ease forwards 0.5s;
+  }
+  .step {
+    display:flex; gap:14px; align-items:center;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:16px 20px;
+    transition:border-color 0.25s ease;
+  }
+  .step:hover { border-color:rgba(108,99,255,0.3); }
+  .step-num {
+    width:32px; height:32px; border-radius:10px; flex-shrink:0;
+    background: linear-gradient(135deg, var(--a1), var(--a3));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-size:13px; font-weight:800; color:white;
+  }
+  .step-body { font-size:13.5px; color:#b0b0c8; }
+  .step-body strong { color:var(--text); }
+
+  /* DIVIDER */
+  .divider {
+    height:1px; margin:34px 0;
+    background: linear-gradient(90deg, transparent, rgba(255,77,109,0.2), rgba(108,99,255,0.2), transparent);
+    opacity:0; animation: fade 0.8s ease forwards 0.6s;
+  }
+
+  /* CARD */
+  .card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:24px; padding:42px;
+    position:relative; overflow:hidden;
+    opacity:0; animation: up 0.9s ease forwards 0.65s;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--danger), var(--a1), var(--a2));
+  }
+  .card-title {
+    font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:700;
+    color:var(--text); margin-bottom:6px;
+  }
+  .card-sub { font-size:13px; color:var(--muted); margin-bottom:30px; }
+
+  /* INFO GRID */
+  .info-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:12px; margin-bottom:28px;
+  }
+  .info-item {
+    background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.14);
+    border-radius:14px; padding:16px; transition:border-color 0.2s, background 0.2s;
+  }
+  .info-item:hover { border-color:rgba(108,99,255,0.28); background:rgba(108,99,255,0.1); }
+  .info-item-icon { font-size:22px; margin-bottom:8px; }
+  .info-item-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .info-item-desc  { font-size:12px; color:var(--muted); line-height:1.5; }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: rgba(67,233,123,0.06); border-left: 3px solid var(--ok);
+    border-radius:0 12px 12px 0; padding:13px 16px; margin-bottom:28px;
+    font-size:13.5px; color:#90c8a8; line-height:1.65;
+  }
+  .highlight strong { color:#a0e8b8; }
+
+  /* EMAIL BOX */
+  .email-box {
+    background: linear-gradient(135deg, rgba(108,99,255,0.10), rgba(171,71,188,0.07));
+    border: 1px solid rgba(108,99,255,0.22);
+    border-radius:18px; padding:28px;
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+    margin-bottom:22px;
+  }
+  .email-icon {
+    width:56px; height:56px; border-radius:16px; flex-shrink:0;
+    background: linear-gradient(135deg, var(--a1), var(--a3));
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+  }
+  .email-info { flex:1; min-width:160px; }
+  .email-label { font-size:12px; color:var(--muted); margin-bottom:4px; }
+  .email-addr { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); }
+  .email-addr a { color:var(--a2); text-decoration:none; }
+  .email-addr a:hover { text-decoration:underline; }
+
+  .btn-copy {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 22px; border-radius:100px; border:none; cursor:pointer;
+    background: linear-gradient(135deg, var(--a1), var(--a2));
+    color:white; font-family:'Syne',sans-serif; font-size:13px; font-weight:700;
+    transition:all 0.25s ease; white-space:nowrap;
+  }
+  .btn-copy:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(108,99,255,0.35); }
+  .btn-copy.copied { background: linear-gradient(135deg, var(--ok), #00C853); pointer-events:none; }
+
+  /* TEMPLATE BOX */
+  .template-box {
+    background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1);
+    border-radius:14px; padding:18px 20px; margin-bottom:22px;
+  }
+  .template-label {
+    font-size:11px; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:12px;
+  }
+  .template-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .template-text {
+    flex:1; font-size:13.5px; color:#c0c0e0; font-family:monospace;
+    background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+    border-radius:8px; padding:8px 12px; user-select:all; word-break:break-all;
+  }
+  .btn-copy-small {
+    padding:8px 16px; border-radius:8px; border:none; cursor:pointer;
+    background: rgba(108,99,255,0.18); border: 1px solid rgba(108,99,255,0.3);
+    color:var(--a2); font-size:12px; font-weight:600;
+    transition:all 0.2s ease; white-space:nowrap;
+  }
+  .btn-copy-small:hover { background:rgba(108,99,255,0.3); }
+  .btn-copy-small.copied { background:rgba(67,233,123,0.15); border-color:rgba(67,233,123,0.3); color:var(--ok); }
+
+  /* NOTE */
+  .note {
+    background: rgba(255,215,0,0.05); border-left:3px solid var(--gold);
+    border-radius:0 12px 12px 0; padding:13px 16px; margin-bottom:22px;
+    font-size:13px; color:#c8b870; line-height:1.65;
+  }
+  .note strong { color:#d4c070; }
+
+  .response-badge {
+    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+    background: rgba(67,233,123,0.07); border: 1px solid rgba(67,233,123,0.18);
+    border-radius:100px; padding:6px 16px;
+    font-size:12px; color:#80c898; font-weight:500;
+  }
+  .response-badge::before {
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--ok); animation:dot 2s ease infinite;
+  }
+
+  /* FAQ */
+  .faq-title {
+    font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700;
+    color:var(--text); margin:36px 0 16px;
+  }
+  .faq-item {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:14px; margin-bottom:10px; overflow:hidden;
+    transition:border-color 0.2s;
+  }
+  .faq-item:hover { border-color:rgba(108,99,255,0.3); }
+  .faq-q {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px; cursor:pointer;
+    font-size:14px; font-weight:600; color:var(--text); gap:12px;
+  }
+  .faq-q:hover { color:var(--a2); }
+  .faq-arrow { font-size:12px; color:var(--muted); flex-shrink:0; transition:transform 0.25s ease; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a {
+    max-height:0; overflow:hidden;
+    transition:max-height 0.35s ease, padding 0.35s ease;
+    font-size:13.5px; color:#a0a0c0; line-height:1.7; padding:0 20px;
+  }
+  .faq-item.open .faq-a { max-height:220px; padding:0 20px 18px; }
+
+  /* FOOTER */
+  .footer {
+    margin-top:60px; padding-top:36px;
+    border-top:1px solid var(--border); text-align:center;
+    opacity:0; animation:fade 0.8s ease forwards 1s;
+  }
+  .footer-brand {
+    font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800;
+    background: linear-gradient(135deg, var(--a1), var(--a2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; margin-bottom:6px;
+  }
+  .footer-copy { font-size:12px; color:var(--muted); opacity:0.5; }
+
+  /* TOAST */
+  .toast {
+    position:fixed; bottom:32px; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background: linear-gradient(135deg, var(--a1), var(--a3));
+    color:white; padding:12px 24px; border-radius:100px;
+    font-size:13px; font-weight:600;
+    opacity:0; pointer-events:none; z-index:999;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1); white-space:nowrap;
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ANIMATIONS */
+  @keyframes up   { to { opacity:1; transform:translateY(0); } }
+  @keyframes fade { to { opacity:1; } }
+
+  /* RESPONSIVE */
+  @media (max-width:600px) {
+    .card { padding:26px 18px; }
+    .hero { padding:40px 0 36px; }
+    .email-box { flex-direction:column; }
+    .info-grid { grid-template-columns:1fr 1fr; }
+    .template-row { flex-direction:column; }
+    .btn-copy-small { width:100%; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-bar" id="scrollBar"></div>
+<div class="bg-layer"></div>
+<div class="grid"></div>
+<div class="particles" id="particles"></div>
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+
+  <a href="index.html" class="back">Voltar ao site</a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-icon">🗑️</div>
+    <div class="badge">Waveframe — Exclusão de Conta</div>
+    <h1>Excluir sua Conta</h1>
+    <p class="hero-sub">Saiba como solicitar a exclusão completa da sua conta e dados no Waveframe.</p>
+  </div>
+
+  <!-- WARNING -->
+  <div class="alert">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text">
+      <strong>Atenção: esta ação é permanente e irreversível.</strong> Após a exclusão, todos os seus dados — incluindo perfil, moedas e histórico — serão apagados definitivamente. <strong>Não é possível recuperar a conta depois.</strong>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body"><strong>Envie um e-mail</strong> para <strong>arcanumrise@gmail.com</strong> com o assunto indicado abaixo.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body"><strong>Informe seu username</strong> no corpo do e-mail para identificarmos sua conta corretamente.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body"><strong>Aguarde nossa resposta</strong> em até 72 horas úteis confirmando a exclusão.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MAIN CARD -->
+  <div class="card">
+
+    <div class="card-title">Como solicitar a exclusão</div>
+    <p class="card-sub">Siga as instruções abaixo e sua conta será removida em até 72 horas úteis.</p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-item-icon">👤</div>
+        <div class="info-item-title">Perfil e dados</div>
+        <div class="info-item-desc">Username, senha e informações de cadastro removidos.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">🪙</div>
+        <div class="info-item-title">Moedas</div>
+        <div class="info-item-desc">Todo o saldo de moedas será apagado permanentemente.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">⭐</div>
+        <div class="info-item-title">Histórico</div>
+        <div class="info-item-desc">Favoritos, wallpapers aplicados e progressão excluídos.</div>
+      </div>
+      <div class="info-item">
+        <div class="info-item-icon">📧</div>
+        <div class="info-item-title">E-mail cadastrado</div>
+        <div class="info-item-desc">Se houver e-mail associado, ele também é removido.</div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      ✅ <strong>Seus dados são tratados com respeito.</strong> Em conformidade com a LGPD, atendemos todos os pedidos de exclusão em até 72 horas úteis após a confirmação da sua identidade.
+    </div>
+
+    <!-- Email box -->
+    <div class="email-box">
+      <div class="email-icon">✉️</div>
+      <div class="email-info">
+        <div class="email-label">Envie sua solicitação para</div>
+        <div class="email-addr">
+          <a href="mailto:arcanumrise@gmail.com?subject=Exclusão de Conta Waveframe&body=Olá, gostaria de solicitar a exclusão da minha conta no Waveframe.%0A%0AMeu username: (coloque aqui)%0A%0AConfirmo que estou ciente de que a exclusão é permanente e irreversível.">arcanumrise@gmail.com</a>
+        </div>
+      </div>
+      <button class="btn-copy" id="btnCopyEmail" onclick="copyEmail()">📋 &nbsp;Copiar e-mail</button>
+    </div>
+
+    <!-- Subject template -->
+    <div class="template-box">
+      <div class="template-label">Assunto sugerido</div>
+      <div class="template-row">
+        <div class="template-text" id="subjectText">Exclusão de Conta Waveframe</div>
+        <button class="btn-copy-small" id="btnCopySubject" onclick="copySubject()">📋 Copiar</button>
+      </div>
+    </div>
+
+    <!-- Body template -->
+    <div class="template-box">
+      <div class="template-label">Corpo sugerido</div>
+      <div class="template-row">
+        <div class="template-text" id="bodyText">Olá, gostaria de solicitar a exclusão da minha conta no Waveframe. Meu username é: [SEU USERNAME]. Confirmo que estou ciente de que a exclusão é permanente e irreversível.</div>
+        <button class="btn-copy-small" id="btnCopyBody" onclick="copyBody()">📋 Copiar</button>
+      </div>
+    </div>
+
+    <div class="note">
+      💡 <strong>Dica:</strong> clique no endereço de e-mail acima para abrir diretamente o seu app de e-mail com assunto e corpo já preenchidos. Basta adicionar seu username e enviar!
+    </div>
+
+    <div><div class="response-badge">Resposta em até 72 horas úteis</div></div>
+
+    <!-- FAQ -->
+    <div class="faq-title">Perguntas frequentes</div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Posso cancelar a exclusão depois de enviar o e-mail? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Sim, desde que sua conta ainda não tenha sido deletada. Basta responder o mesmo e-mail informando que deseja cancelar a solicitação antes de recebermos a confirmação final.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Preciso confirmar minha identidade? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Sim. Para garantir a segurança da sua conta, precisamos que você informe o username no e-mail. Se tiver e-mail cadastrado na conta, faremos a confirmação por ele.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Em quanto tempo minha conta é excluída? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Após confirmarmos sua identidade, a exclusão é concluída em até 72 horas úteis. Você receberá uma confirmação por e-mail.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">O que acontece com minhas moedas? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Todas as moedas são apagadas junto com a conta. Moedas não são reembolsáveis, pois foram obtidas gratuitamente assistindo anúncios dentro do app.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Posso criar uma nova conta depois? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Sim! A exclusão é da conta específica, não do dispositivo ou e-mail. Você pode criar uma nova conta a qualquer momento pelo app Waveframe.</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">Waveframe</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">by Arcanum Rise Studios</p>
+    <div class="footer-copy">© 2026 Arcanum Rise Studios. Todos os direitos reservados.</div>
+  </div>
+
+</div>
+
+<script>
+  requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollBar').style.width = pct + '%';
+    const b = document.getElementById('topBtn');
+    window.scrollY > 320 ? b.classList.add('show') : b.classList.remove('show');
+  });
+
+  let toastTimer;
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  function copyEmail() {
+    navigator.clipboard.writeText('arcanumrise@gmail.com').then(() => {
+      const btn = document.getElementById('btnCopyEmail');
+      btn.innerHTML = '✅ &nbsp;Copiado!';
+      btn.classList.add('copied');
+      showToast('E-mail copiado! ✅');
+      setTimeout(() => { btn.innerHTML = '📋 &nbsp;Copiar e-mail'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  function copySubject() {
+    navigator.clipboard.writeText(document.getElementById('subjectText').textContent).then(() => {
+      const btn = document.getElementById('btnCopySubject');
+      btn.textContent = '✅ Copiado!'; btn.classList.add('copied');
+      showToast('Assunto copiado! ✅');
+      setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  function copyBody() {
+    navigator.clipboard.writeText(document.getElementById('bodyText').textContent).then(() => {
+      const btn = document.getElementById('btnCopyBody');
+      btn.textContent = '✅ Copiado!'; btn.classList.add('copied');
+      showToast('Corpo do e-mail copiado! ✅');
+      setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+
+  function toggleFaq(el) { el.classList.toggle('open'); }
+
+  // Particles
+  (function() {
+    const c = document.getElementById('particles');
+    const colors = ['rgba(255,77,109,0.3)','rgba(108,99,255,0.28)','rgba(79,195,247,0.22)','rgba(171,71,188,0.22)'];
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div'); p.className = 'p';
+      const s = Math.random() * 4.5 + 2;
+      p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${colors[i%colors.length]};animation-duration:${Math.random()*16+13}s;animation-delay:${Math.random()*12}s;`;
+      c.appendChild(p);
+    }
+  })();
+</script>
+</body>
+</html>
