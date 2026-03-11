@@ -52,11 +52,20 @@ body {
   padding: 8px 16px;
   border-radius: 20px;
   transition: 0.3s;
+  clip-path: none;
+  position: relative;
 }
 
 .desktop-menu li.active,
 .desktop-menu li:hover {
   background: #6c63ff;
+  border-radius: 0;
+  clip-path: polygon(
+    8px 0%, calc(100% - 8px) 0%,
+    100% 8px, 100% calc(100% - 8px),
+    calc(100% - 8px) 100%, 8px 100%,
+    0% calc(100% - 8px), 0% 8px
+  );
 }
 
 .mobile-menu-toggle {
@@ -100,11 +109,19 @@ body {
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
+  clip-path: none;
 }
 
 .mobile-menu li.active,
 .mobile-menu li:hover {
   background: #6c63ff;
+  border-radius: 0;
+  clip-path: polygon(
+    8px 0%, calc(100% - 8px) 0%,
+    100% 8px, 100% calc(100% - 8px),
+    calc(100% - 8px) 100%, 8px 100%,
+    0% calc(100% - 8px), 0% 8px
+  );
 }
 
 /* ================= PÁGINAS ================= */

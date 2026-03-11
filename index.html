@@ -13,22 +13,22 @@
 
 <nav class="desktop-menu">
   <ul>
-    <li data-page="home" class="active">&#127968; Home</li>
-    <li data-page="downloads">&#11015;&#65039; Downloads</li>
-    <li data-page="contact">&#128233; Fale Conosco</li>
-    <li onclick="window.location.href='PoliticadePrivacidade.html'">&#128274; Pol&#237;tica de Privacidade</li>
-    <li data-page="outros">&#128218; Outros</li>
+    <li data-page="home" class="active"><img src="images/IconsSite/Menus/Icon-Home.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Home</li>
+    <li data-page="downloads"><img src="images/IconsSite/Menus/Icon-Downloads.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Downloads</li>
+    <li data-page="contact"><img src="images/IconsSite/Menus/Icon-FaleConosco.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Fale Conosco</li>
+    <li onclick="window.location.href='PoliticadePrivacidade.html'"><img src="images/IconsSite/Menus/Icon-PoliticaDePrivacidade.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Política de Privacidade</li>
+    <li data-page="outros"><img src="images/IconsSite/Menus/Icon-Outros.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Outros</li>
   </ul>
 </nav>
 
 <div class="mobile-menu-toggle" id="mobileMenuToggle">&#9776;</div>
 <nav class="mobile-menu" id="mobileMenu">
   <ul>
-    <li data-page="home" class="active">&#127968; Home</li>
-    <li data-page="downloads">&#11015;&#65039; Downloads</li>
-    <li data-page="contact">&#128233; Fale Conosco</li>
-    <li onclick="window.location.href='PoliticadePrivacidade.html'">&#128274; Pol&#237;tica de Privacidade</li>
-    <li data-page="outros">&#128218; Outros</li>
+    <li data-page="home" class="active"><img src="images/IconsSite/Menus/Icon-Home.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Home</li>
+    <li data-page="downloads"><img src="images/IconsSite/Menus/Icon-Downloads.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Downloads</li>
+    <li data-page="contact"><img src="images/IconsSite/Menus/Icon-FaleConosco.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Fale Conosco</li>
+    <li onclick="window.location.href='PoliticadePrivacidade.html'"><img src="images/IconsSite/Menus/Icon-PoliticaDePrivacidade.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Política de Privacidade</li>
+    <li data-page="outros"><img src="images/IconsSite/Menus/Icon-Outros.png" alt="" width="18" height="18" style="vertical-align:middle;margin-right:6px;"> Outros</li>
   </ul>
 </nav>
 
@@ -229,9 +229,239 @@
   <!-- ========== CONTATO ========== -->
   <section id="contact" class="page">
     <div class="contact-container">
-      <h2>Fale Conosco</h2>
-      <p>Email: arcanumrise@gmail.com</p>
+
+      <div class="contact-hero">
+        <div class="contact-hero-icon">
+          <img src="images/IconsSite/Menus/Icon-FaleConosco.png" alt="" width="48" height="48" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span style="display:none;font-size:40px;">📩</span>
+        </div>
+        <h2>Fale Conosco</h2>
+        <p class="contact-hero-desc">Teve algum problema com nossos jogos ou aplicativos? Entre em contato com nossa equipe — vamos resolver o mais rápido possível!</p>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-field-group">
+          <label class="contact-label" for="contactSubject">
+            <span class="contact-label-dot"></span>
+            Assunto <span class="contact-required">*</span>
+          </label>
+          <input
+            class="contact-input"
+            id="contactSubject"
+            type="text"
+            placeholder="Ex: Bug no Waveframe, problema com conta..."
+            maxlength="100"
+            autocomplete="off"
+          />
+          <span class="contact-char-count" id="contactCharCount">0/100</span>
+        </div>
+
+        <div class="contact-field-group">
+          <label class="contact-label" for="contactBody">
+            <span class="contact-label-dot"></span>
+            Mensagem <span class="contact-optional">(opcional)</span>
+          </label>
+          <textarea
+            class="contact-input contact-textarea"
+            id="contactBody"
+            placeholder="Descreva o problema com detalhes, o aplicativo afetado, versão, etc..."
+            maxlength="2000"
+            rows="5"
+          ></textarea>
+          <span class="contact-char-count" id="contactBodyCount">0/2000</span>
+        </div>
+
+        <div class="contact-info-row">
+          <span class="contact-info-tag">📧 arcanumrise@gmail.com</span>
+          <span class="contact-info-tag">⚡ Resposta em até 48h</span>
+        </div>
+
+        <button class="contact-send-btn" id="contactSendBtn" disabled>
+          <span class="contact-btn-icon">✉️</span>
+          Enviar Mensagem
+        </button>
+        <p class="contact-hint" id="contactHint">Preencha o assunto para habilitar o envio.</p>
+      </div>
+
     </div>
+
+    <style>
+    .contact-container {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+    .contact-hero {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .contact-hero-icon {
+      margin-bottom: 16px;
+    }
+    .contact-hero h2 {
+      font-size: 2rem;
+      color: #6c63ff;
+      margin-bottom: 10px;
+    }
+    .contact-hero-desc {
+      color: #8888aa;
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 20px;
+      padding: 32px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .contact-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+    .contact-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #aaaacc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .contact-label-dot {
+      width: 6px;
+      height: 6px;
+      background: #6c63ff;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      display: inline-block;
+    }
+    .contact-required { color: #ff4d6d; }
+    .contact-optional { color: #555577; font-weight: 400; text-transform: none; font-size: 11px; }
+    .contact-input {
+      background: rgba(108,99,255,0.05);
+      border: 1px solid rgba(108,99,255,0.18);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #eeeef5;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+    }
+    .contact-input::placeholder { color: #44445a; }
+    .contact-input:focus {
+      border-color: rgba(108,99,255,0.5);
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+    }
+    .contact-textarea { min-height: 110px; }
+    .contact-char-count {
+      align-self: flex-end;
+      font-size: 11px;
+      color: #44445a;
+      margin-top: -4px;
+    }
+    .contact-info-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .contact-info-tag {
+      background: rgba(108,99,255,0.07);
+      border: 1px solid rgba(108,99,255,0.15);
+      border-radius: 30px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: #7777aa;
+    }
+    .contact-send-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 24px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      letter-spacing: 0.04em;
+      transition: all 0.25s ease;
+      background: linear-gradient(135deg, #6c63ff, #a855f7);
+      color: white;
+      clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+    }
+    .contact-send-btn:not(:disabled):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(108,99,255,0.35);
+      filter: brightness(1.1);
+    }
+    .contact-send-btn:disabled {
+      background: rgba(108,99,255,0.15);
+      color: #444466;
+      cursor: not-allowed;
+      clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+    }
+    .contact-btn-icon { font-size: 17px; }
+    .contact-hint {
+      text-align: center;
+      font-size: 12px;
+      color: #44445a;
+      margin-top: -10px;
+      min-height: 18px;
+      transition: color 0.2s;
+    }
+    </style>
+
+    <script>
+    (function() {
+      const subjectInput = document.getElementById('contactSubject');
+      const bodyInput = document.getElementById('contactBody');
+      const sendBtn = document.getElementById('contactSendBtn');
+      const hint = document.getElementById('contactHint');
+      const charCount = document.getElementById('contactCharCount');
+      const bodyCount = document.getElementById('contactBodyCount');
+
+      function update() {
+        const subject = subjectInput.value.trim();
+        charCount.textContent = subjectInput.value.length + '/100';
+        bodyCount.textContent = bodyInput.value.length + '/2000';
+
+        if (subject.length > 0) {
+          sendBtn.disabled = false;
+          hint.textContent = 'Pronto! Clique para abrir seu e-mail.';
+          hint.style.color = '#6c63ff';
+        } else {
+          sendBtn.disabled = true;
+          hint.textContent = 'Preencha o assunto para habilitar o envio.';
+          hint.style.color = '#44445a';
+        }
+      }
+
+      subjectInput.addEventListener('input', update);
+      bodyInput.addEventListener('input', update);
+
+      sendBtn.addEventListener('click', function() {
+        const subject = encodeURIComponent(subjectInput.value.trim());
+        const body = encodeURIComponent(bodyInput.value.trim());
+        const to = 'suporte@arcanum-rise.com.br';
+        const mailtoLink = body
+          ? `mailto:${to}?subject=${subject}&body=${body}`
+          : `mailto:${to}?subject=${subject}`;
+        window.location.href = mailtoLink;
+      });
+    })();
+    </script>
   </section>
 
   <!-- ========== OUTROS ========== -->
@@ -254,13 +484,6 @@
 
         <div class="outros-apps-grid">
 
-          <!-- Sonus Wave — sem suporte ainda -->
-          <button class="outros-app-btn outros-app-disabled" onclick="showToast('Exclusão de conta para Sonus Wave em breve!')" aria-label="Sonus Wave - Em breve">
-            <span class="outros-app-emoji">&#127925;</span>
-            <span class="outros-app-name">Sonus Wave</span>
-            <span class="outros-app-badge outros-badge-soon">Em breve</span>
-          </button>
-
           <!-- Waveframe — leva para a página de exclusão -->
           <a class="outros-app-btn outros-app-active" href="WaveframeTutorialExclusao.html" aria-label="Waveframe - Excluir conta">
             <span class="outros-app-emoji">&#127754;</span>
@@ -278,7 +501,7 @@
 
 <div id="toast" class="toast"></div>
 
-<script src="script.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
 
 <style>
 /* ========== OUTROS PAGE ========== */
@@ -417,14 +640,15 @@
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
-  .outros-apps-grid { flex-direction: column; }
-  .outros-app-btn { min-width: unset; }
+@keyframes pulseAvailable {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(108,99,255,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(108,99,255,0); }
 }
 </style>
+
 </body>
 </html>

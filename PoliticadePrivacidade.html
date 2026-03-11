@@ -65,6 +65,28 @@
     padding: 0 24px 100px;
   }
 
+  /* ── BOTÃO VOLTAR ── */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
+  }
+  .back-btn:hover {
+    color: var(--text);
+    border-color: rgba(108,99,255,0.35);
+    background: rgba(108,99,255,0.07);
+  }
+
   /* ── HERO ── */
   .hero {
     padding: 90px 0 60px;
@@ -519,6 +541,9 @@
 
 <div class="wrapper">
 
+  <!-- BOTÃO VOLTAR -->
+  <a href="index.html" class="back-btn">← Voltar ao site</a>
+
   <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">Arcanum Rise Studios</div>
@@ -837,7 +862,7 @@
           <div class="contact-icon">✉️</div>
           <div class="contact-info">
             <div class="contact-label">E-mail oficial — Arcanum Rise</div>
-            <div class="contact-email"><a href="mailto:arcanumrise@gmail.com">arcanumrise@gmail.com</a></div>
+            <div class="contact-email"><a href="/cdn-cgi/l/email-protection#98f9eafbf9f6edf5eaf1ebfdd8fff5f9f1f4b6fbf7f5"><span class="__cf_email__" data-cfemail="fe9f8c9d9f908b938c978d9bbe99939f9792d09d9193">[email&#160;protected]</span></a></div>
           </div>
         </div>
         <p style="margin-top:16px;">Nos comprometemos a responder todas as solicitações em até <strong>72 horas úteis</strong>.</p>
@@ -860,7 +885,7 @@
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll progress bar
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
@@ -885,12 +910,6 @@
 
   document.querySelectorAll('.section').forEach(el => observer.observe(el));
 
-  // Smooth fade in on load
-  document.body.style.opacity = '0';
-  requestAnimationFrame(() => {
-    document.body.style.transition = 'opacity 0.6s ease';
-    document.body.style.opacity = '1';
-  });
 </script>
 </body>
 </html>
