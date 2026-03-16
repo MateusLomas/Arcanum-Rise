@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arcanum Rise</title>
+  <title>Arcanum Rise - 2026</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,7 +39,7 @@
     <div class="container">
       <h1 class="logo">Arcanum Rise</h1>
       <p class="subtitle" id="typing"></p>
-      <p class="description">Criando jogos e aplica&#231;&#245;es inovadoras.<br>O futuro est&#225; em desenvolvimento.</p>
+      <p class="description">Criando jogos e aplica&#231;&#245;es inovadoras.<br>O futuro est&#225; Velonote.exe</p>
       <div class="status">&#128640; Estamos trabalhando muito!</div>
     </div>
   </section>
@@ -71,15 +71,15 @@
               <span class="irw-badge-unavailable">Indispon&#237;vel</span>
             </button>
 
-            <!-- Sonus Wave -->
-            <button class="irw-platform" data-platform="sonus" aria-label="Sonus Wave">
+            <!-- Luvia Wave -->
+            <button class="irw-platform" data-platform="sonus" aria-label="Luvia Wave">
               <span class="irw-icon">
                 <img src="images/IconsSite/icon-android.png" alt="Icone Android" width="40" height="40"
                   onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
                 <span style="display:none;font-size:32px;">&#127925;</span>
               </span>
-              <span class="irw-label">Sonus Wave</span>
-              <span class="irw-badge-unavailable">Indispon&#237;vel</span>
+              <span class="irw-label">Luvia Wave</span>
+              <span class="irw-badge-available">Dispon&#237;vel</span>
             </button>
 
             <!-- Waveframe -->
@@ -90,7 +90,7 @@
                 <span style="display:none;font-size:32px;">&#127925;</span>
               </span>
               <span class="irw-label">Waveframe</span>
-              <span class="irw-badge-unavailable">Indispon&#237;vel</span>
+              <span class="irw-badge-available">Dispon&#237;vel</span>
             </button>
 
             <!-- Velonote -->
@@ -119,7 +119,7 @@
               </div>
               <div class="irw-progress" aria-hidden="true">
                 <div class="irw-progress-bar" style="width:0%"></div>
-                <div class="irw-progress-text">Em desenvolvimento</div>
+                <div class="irw-progress-text" id="irw-status-text"></div>
               </div>
             </div>
             <ul class="irw-features">
@@ -131,17 +131,33 @@
 
         </div>
 
-        <footer class="irw-footer">
+        <footer class="irw-footer" id="irw-footer">
           Arquivo: <strong id="irw-file">&#8212;</strong> &#8226; Tamanho: <strong id="irw-size">&#8212;</strong>
         </footer>
       </div>
 
-      <!-- ========== PREVIEW: SONUS WAVE ========== -->
+      <!-- Download Animation Overlay -->
+      <div id="download-overlay" class="download-overlay">
+        <div class="download-animation">
+          <button id="cancel-download" class="cancel-download-btn" aria-label="Cancelar">✕</button>
+          <div class="download-spinner-wrap">
+            <div class="download-spinner"></div>
+            <span class="download-spinner-icon">⬇️</span>
+          </div>
+          <p class="download-modal-title">Preparando download</p>
+          <p class="download-text" id="download-countdown-text">Aguarde um momento...</p>
+          <div class="download-modal-progress">
+            <div class="download-modal-progress-bar" id="download-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== PREVIEW: Luvia Wave ========== -->
       <div id="sonus-preview-section" class="velonote-preview-section sonus-preview-section" style="display:none;">
         <div class="vp-header">
           <div class="vp-title-line">
             <span class="vp-dot sonus-dot"></span>
-            <h3 class="vp-title">Preview do Sonus Wave</h3>
+            <h3 class="vp-title">Preview do Luvia Wave</h3>
             <span class="vp-dot sonus-dot"></span>
           </div>
           <p class="vp-subtitle">Reprodutor de m&#250;sica totalmente customiz&#225;vel &#8212; player, fundo, playlists e muito mais</p>
@@ -150,19 +166,19 @@
           <div class="vp-track" id="sonusTrack">
             <div class="vp-slide" data-index="0">
               <div class="vp-img-wrap">
-                <img src="images/Previews/SonusWave-Musics.jpeg" alt="Sonus Wave - Musicas" loading="lazy" />
+                <img src="images/Previews/SonusWave-Musics.jpeg" alt="Luvia Wave - Musicas" loading="lazy" />
                 <div class="vp-img-overlay"><span class="vp-img-label">&#127925; Suas M&#250;sicas</span></div>
               </div>
             </div>
             <div class="vp-slide" data-index="1">
               <div class="vp-img-wrap">
-                <img src="images/Previews/SonusWave-Config.jpeg" alt="Sonus Wave - Configuracoes" loading="lazy" />
+                <img src="images/Previews/SonusWave-Config.jpeg" alt="Luvia Wave - Configuracoes" loading="lazy" />
                 <div class="vp-img-overlay"><span class="vp-img-label">&#9881;&#65039; Configura&#231;&#245;es</span></div>
               </div>
             </div>
             <div class="vp-slide" data-index="2">
               <div class="vp-img-wrap">
-                <img src="images/Previews/SonusWave-Playlists.jpeg" alt="Sonus Wave - Playlists" loading="lazy" />
+                <img src="images/Previews/SonusWave-Playlists.jpeg" alt="Luvia Wave - Playlists" loading="lazy" />
                 <div class="vp-img-overlay"><span class="vp-img-label">&#128203; Playlists</span></div>
               </div>
             </div>
@@ -272,7 +288,7 @@
         </div>
 
         <div class="contact-info-row">
-          <span class="contact-info-tag">📧 arcanumrise@gmail.com</span>
+          <span class="contact-info-tag">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4c5d6c7c5cad1c9d6cdd7c1e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</a></span>
           <span class="contact-info-tag">⚡ Resposta em até 48h</span>
         </div>
 
@@ -423,7 +439,7 @@
     }
     </style>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     (function() {
       const subjectInput = document.getElementById('contactSubject');
       const bodyInput = document.getElementById('contactBody');
